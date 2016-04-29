@@ -1,38 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <title>D3 Test</title>
-        <script type="text/javascript" src="http://d3js.org/d3.v3.js"></script>
-    </head>
+<head>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+    <meta charset="utf-8">
+    <style>
 
-    <body>
-        <script type="text/javascript">
-           // Set up size
-            var width = 750;
-            var height = width;
+    </style>
 
-            // Set up projection that map is using
-            var projection = d3.geo.mercator()
-                .center([-122.433701, 37.767683]) // San Francisco, roughly
-                .scale(225000)
-                .translate([width / 2, height / 2]);
-            // This is the mapping between <longitude, latitude> position to <x, y> pixel position on the map
-            // projection([lon, lat]) returns [x, y]
+</head>
 
-            // Add an svg element to the DOM
-            var svg = d3.select("...").append("svg")
-                .attr("width", width)
-                .attr("height", height);
+<body>
+<script>
+    // Set up size
+    var width = 750,
+        height = width;
 
-            // Add svg map at correct size, assumes map is saved in a subdirectory called "data"
-            svg.append("image")
-                      .attr("width", width)
-                      .attr("height", height)
-                      .attr("xlink:href", "data/sf-map.svg");
-        </script>
+    // Add an svg element to the DOM
+    var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
 
-        <p> Hello!        </p>
-    </body>
-</html>  
+    // Set up projection that map is using
+    var projection = d3.geo.mercator()
+        .center([-122.433701, 37.767683]) // San Francisco, roughly
+        .scale(225000)
+        .translate([width / 2, height / 2]);
+    // This is the mapping between <longitude, latitude> position to <x, y> pixel position on the map
+    // projection([lon, lat]) returns [x, y]
+
+    // Add svg map at correct size, assumes map is saved in a subdirectory called "data"
+    svg.append("image")
+          .attr("width", width)
+          .attr("height", height)
+          .attr("xlink:href", "data/sf-map.svg");
+
+</script>
+</body>
+</html>

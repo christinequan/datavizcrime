@@ -1,8 +1,8 @@
 <!doctype html>
+
 <html lang="en">
 
 <head>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="style.css">
 
@@ -22,14 +22,16 @@
 </head>
 
 <body>
-<div id="header">
-    <div class='container'> SF CRIME MAP </div>
-</div>
 
+    <script src="http://d3js.org/d3.v3.min.js"></script>
 
-<div class='container'>   
-   <div id="first">
-        <script>
+    <div id= "header">
+        <h1> SF CRIME MAP </h1>
+    </div>
+
+    <div id="map">
+       
+       <script>
             // Set up size
             var width = 750,
                 height = width;
@@ -47,17 +49,26 @@
             // This is the mapping between <longitude, latitude> position to <x, y> pixel position on the map
             // projection([lon, lat]) returns [x, y]
 
+            var upper_right = projection.invert([750, 0]);
+            var lower_left = projection.invert([0, 750]);
+            var dist_px = 750 * Math.sqrt(2);
+            var dist_mile = d3.geo.distance(upper_right, lower_left) * 3959;
+            var ratio = dist_px/dist_mile
+
             // Add svg map at correct size, assumes map is saved in a subdirectory called "data"
             svg.append("image")
                   .attr("width", width)
                   .attr("height", height)
                   .attr("xlink:href", "data/sf-map.svg");
         </script>
+
     </div>
 
-    <div id="second">
+    <div id = "inputform">
+
      <form>
       <fieldset>
+
         <legend> Addresses </legend>
        
         <p>
@@ -67,9 +78,10 @@
                  value = "text here" />
        </p>
 
-       <script type="text/javascript">
-           alert(Home.home_address.value)
-       </script>
+       <p>
+        <label> Home Radius </label><br>
+        1 <input type="range" name="points" min="1" max="10" step = "1" value = "0"> 10
+       </p>
 
         <p>
           <label> Work </label><br>
@@ -79,15 +91,28 @@
         </p>
 
         <p>
-          <label> Crime Type </label><br>
-          <input type = "text"
-                  id = "crimetype"
-                  value = "text here" />
+        <label> Work Radius </label><br>
+         1 <input type="range" name="points" min="1" max="10" step = "1" value="0"> 10
         </p>
+
+       
         
       </fieldset>
-   
     </form>
+
+    <fieldset>
+
+        <form action="">
+        
+        <label> Crime </label><br>
+        <input type="checkbox" name="ARSON" value="ARSON">Arson <br>
+        <input type="checkbox" name="BRIBERY" value="BRIBERY">Bribery<br>
+        <input type="checkbox" name="BURGLARY" value="BURGLARY">Burglary <br> 
+
+        </form>
+
+
+    </fieldset>
 
     <input type="Submit" value="Submit" onclick="showInput();"><br />
 
@@ -102,5 +127,5 @@
 
     </div>
 
-</div>
 </body>
+</html>

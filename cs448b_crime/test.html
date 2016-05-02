@@ -3,70 +3,93 @@
 
 <head>
   <script src="http://d3js.org/d3.v3.min.js"></script>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+<!-- Displaying the user's input --> 
+  <script language="JavaScript">
+    function showInput() {
+        var home =  document.getElementById("home_address").value;
+        var work = document.getElementById("work_address").value;
+        var crime = document.getElementById("crimetype").value;
 
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
-    <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"> </script>
+        document.getElementById('display1').innerHTML = home;
+        document.getElementById('display2').innerHTML = work;
+        document.getElementById('display3').innerHTML = crime
+    }
 
+  </script>
 </head>
 
 
+<body>
 <div id="header">
     <div class='container'> SF CRIME MAP </div>
 </div>
 
+<div id="mapid" style="width: 600px; height: 400px"></div>
 
-<body>
+  <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+  <script>
 
-  <div id="map" style="width: 600px; height: 400px"></div>
+    var mymap = L.map('mapid').setView([37.773972, -122.431297], 10);
 
-  <script type="text/javascript">
-  
-        var map = L.map('map').setView([-41.2858, 174.7868], 13);
-        mapLink = 
-            '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-        L.tileLayer(
-            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; ' + mapLink + ' Contributors',
-            maxZoom: 18,
-            }).addTo(map);
-        
-  /* Initialize the SVG layer */
-  map._initPathRoot()    
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      id: 'mapbox.streets'
+    }).addTo(mymap);
 
-  /* We simply pick up the SVG from the map object */
-  var svg = d3.select("#map").select("svg"),
-  g = svg.append("g");
-  
-  d3.json("circles.json", function(collection) {
-    /* Add a LatLng object to each item in the dataset */
-    collection.objects.forEach(function(d) {
-      d.LatLng = new L.LatLng(d.circle.coordinates[0],
-                  d.circle.coordinates[1])
-    })
-    
-    var feature = g.selectAll("circle")
-      .data(collection.objects)
-      .enter().append("circle")
-      .style("stroke", "black")  
-      .style("opacity", .6) 
-      .style("fill", "red")
-      .attr("r", 20);  
-    
-    map.on("viewreset", update);
-    update();
-
-    function update() {
-      feature.attr("transform", 
-      function(d) { 
-        return "translate("+ 
-          map.latLngToLayerPoint(d.LatLng).x +","+ 
-          map.latLngToLayerPoint(d.LatLng).y +")";
-        }
-      )
-    }
-  })       
 </script>
+
+ <div id="second">
+     <form>
+      <fieldset>
+        <legend> Addresses </legend>
+       
+        <p>
+          <label> Home </label><br>
+          <input type = "text"
+                 id = "home_address"
+                 value = "text here" />
+       </p>
+
+       <script type="text/javascript">
+           alert(Home.home_address.value)
+       </script>
+
+        <p>
+          <label> Work </label><br>
+          <input type = "text"
+                  id = "work_address"
+                  value = "text here" />
+        </p>
+
+        <p>
+          <label> Crime Type </label><br>
+          <input type = "text"
+                  id = "crimetype"
+                  value = "text here" />
+        </p>
+        
+      </fieldset>
+   
+    </form>
+
+    <input type="Submit" value="Submit" onclick="showInput();"><br />
+
+    <label>Your home address: </label>
+    <p><span id='display1'></span> </p>
+
+    <label>Your work address: </label>
+        <p><span id='display2'></span> </p>
+
+    <label>Crime  address: </label>
+        <p><span id='display3'></span> </p>
+
+    </div>
+
+
 </body>
-</html>

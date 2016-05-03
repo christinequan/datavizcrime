@@ -1,22 +1,149 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+
 <head>
-<script src="http://maps.googleapis.com/maps/api/js"></script>
-<script>
-function initialize() {
-  var mapProp = {
-    center:new google.maps.LatLng(51.508742,-0.120850),
-    zoom:5,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-}
-google.maps.event.addDomListener(window, 'load', initialize);
-</script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+
+<!-- Displaying the user's input --> 
+  <script language="JavaScript">
+    function showInput() {
+        var home =  document.getElementById("home_address").value;
+        var work = document.getElementById("work_address").value;
+        var crime = document.getElementById("crimetype").value;
+
+        document.getElementById('display1').innerHTML = home;
+        document.getElementById('display2').innerHTML = work;
+        document.getElementById('display3').innerHTML = crime
+    }
+  </script>
 </head>
 
-<body>
-<div id="googleMap" style="width:500px;height:380px;"></div>
-</body>
 
+<body>
+<div id="header">
+    <div class='container'> SF CRIME MAP </div>
+</div>
+
+<div id="mapid" style="width: 800px; height: 800px"></div>
+
+
+
+ <div id="second">
+     <form>
+      <fieldset>
+        <legend> Addresses </legend>
+       
+        <p>
+          <label> Home </label><br>
+          <input type = "text"
+                 id = "home_address"
+                 value = "text here" />
+       </p>
+
+       <script type="text/javascript">
+           alert(Home.home_address.value)
+       </script>
+
+        <p>
+          <label> Work </label><br>
+          <input type = "text"
+                  id = "work_address"
+                  value = "text here" />
+        </p>
+
+        <p>
+          <label> Crime Type </label><br>
+          <input type = "text"
+                  id = "crimetype"
+                  value = "text here" />
+        </p>
+        
+      </fieldset>
+   
+    </form>
+
+    <input type="Submit" value="Submit" onclick="showInput();"><br />
+
+    <label>Your home address: </label>
+    <p><span id='display1'></span> </p>
+
+    <label>Your work address: </label>
+        <p><span id='display2'></span> </p>
+
+    <label>Crime  address: </label>
+        <p><span id='display3'></span> </p>
+
+    </div>
+
+
+</body>
+</html>
+
+
+     <form>
+             <p>
+          <label> Crime Type </label><br>
+          <input type = "text"
+                  id = "crimetype"
+                  value = "text here" />
+        </p>
+        </form>
+
+###THE FORM####### CHECKLIST
+
+        <script type="text/javascript">
+
+        var checkList = document.getElementById('crimelist');
+        checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
+            if (checkList.classList.contains('visible'))
+                checkList.classList.remove('visible');
+            else
+                checkList.classList.add('visible');
+        }
+
+        checkList.onblur = function(evt) {
+            checkList.classList.remove('visible');
+        }
+        
+    </script>
+
+
+
+
+
+//////////////////////////////////////////////////////
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+</head>
+
+
+<body>
+
+<div id="header">
+    <div class='container'> SF CRIME MAP </div>
+</div>
+
+<div id="map">
+  <script>
+
+  var map = new L.Map("map", {center: [-122.433701, 37.767683], zoom: 6})
+  .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));
+
+  new L.ImageOverlay("data/sf-map.svg", opacity = 1).addTo(map).bringToFront()
+  var svg = d3.select(map.getPanes().overlayPane).append("svg"),
+    g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+  </script>
+</div>
+
+</body>
 </html>

@@ -18,23 +18,47 @@
         <h1> SF CRIME MAP </h1>
   </div>
 
-<!-- Map Container -->
+<!-- Map  -->
 
    <script type = text/javascript >
+
+   var map;
+   var geocoder; 
+
   function initialize() {
+
+  geocoder = new google.maps.Geocoder();
   var mapProp = {
-    center:new google.maps.LatLng (37.767683, -122.433701),
+    center:new google.maps.LatLng(37.767683, -122.433701),
     zoom:12,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-  var map=new google.maps.Map(document.getElementById("map"),mapProp);
-}
-google.maps.event.addDomListener(window, 'load', initialize);
+    mapTypeId:google.maps.MapTypeId.ROADMAP,
+  }
+
+  map = new google.maps.Map(document.getElementById("map"),mapProp);
+
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+
+
+  function codeAddress() {
+      var address = document.getElementById("address").value;
+      geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+          });
+        } else {
+          alert("Geocode was not successful for the following reason: " + status);
+        }
+      });
+    };
+
+    
 </script>
 
-
-  <div id="map"></div>
-
+<div id="map"></div>
 
 <!-- Input Form -->
   <div id="inputform">
@@ -46,24 +70,26 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
         <form>
        
-        <p>
+        <div id = "addressA">
           <label> Home </label><br>
           <input type = "text"
-                 id = "home_address"
-                 value = "text here" />
-        </p>
+                 id = "address"
+                 value = "San Francisco, CA" />
+          <input type="button" value="Encode" onclick="codeAddress()">
+        </div>
 
        <p>
         <label> Home Radius </label><br>
         1 <input type="range" name="points" min="1" max="10" step = "1" value = "0"> 10
        </p>
 
-      <p>
+      <div id = "addressB">
         <label> Work </label><br>
         <input type = "text"
-                id = "work_address"
-                value = "text here" />
-      </p>
+                id = "address"
+                value = "San Francisco, CA" />
+        <input type="button" value="Encode" onclick="codeAddress()">
+      </div>
 
       <p>
       <label> Work Radius </label><br>
@@ -114,6 +140,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
           document.getElementById('display1').innerHTML = home;
           document.getElementById('display2').innerHTML = work;
       };
+
+
 
 
     </script>

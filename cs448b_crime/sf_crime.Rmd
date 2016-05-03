@@ -1,0 +1,29 @@
+---
+title: "sf_crime"
+author: "Christine"
+date: "May 2, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(RJSONIO)
+library(readr)
+```
+
+
+```{r}
+json <- read_file("scpd_incidents.txt")
+file <- fromJSON(json)
+
+json_file <- lapply(file, function(x) {
+  x[sapply(x, is.null)] <- NA
+  unlist(x)})
+
+json_data <- fromJSON(json_file, nullValue = NA)
+asFrame <- do.call("rbind.fill", lapply(json_data, as.data.frame))
+```
+

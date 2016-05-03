@@ -109,3 +109,41 @@
         }
         
     </script>
+
+
+
+
+
+//////////////////////////////////////////////////////
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+</head>
+
+
+<body>
+
+<div id="header">
+    <div class='container'> SF CRIME MAP </div>
+</div>
+
+<div id="map">
+  <script>
+
+  var map = new L.Map("map", {center: [-122.433701, 37.767683], zoom: 6})
+  .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));
+
+  new L.ImageOverlay("data/sf-map.svg", opacity = 1).addTo(map).bringToFront()
+  var svg = d3.select(map.getPanes().overlayPane).append("svg"),
+    g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+  </script>
+</div>
+
+</body>
+</html>

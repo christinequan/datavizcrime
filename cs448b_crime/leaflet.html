@@ -37,6 +37,7 @@
 <!-- Input Form -->
   <div id="inputform">
 
+      <!-- Address Forms -->
       <fieldset>
 
         <label> Addresses </label><br>
@@ -71,14 +72,16 @@
 
       </fieldset>
 
+    <!-- Crimes Checkboxes -->
     <fieldset>
 
-        <form action="crime">
+        <form action="">
         
         <label> Crime </label><br>
-        <input type="checkbox" name="ARSON" value="ARSON">Arson <br>
-        <input type="checkbox" name="BRIBERY" value="BRIBERY">Bribery<br>
-        <input type="checkbox" name="BURGLARY" value="BURGLARY">Burglary <br> 
+        <input type="checkbox" id = crime name="ARSON" value="ARSON">Arson <br>
+        <input type="checkbox" id = crime name="BRIBERY" value="BRIBERY">Bribery<br>
+        <input type="checkbox" id = crime name="BURGLARY" value="BURGLARY">Burglary <br> 
+        <input type="Button" value="Show values" onClick="showVal(this.form)"/> 
 
         </form>
 
@@ -90,15 +93,26 @@
 
     <!-- Test --> 
       <script type="text/javascript">
+
+      function showVal(frm) {
+      var arr = [];
+      for (var i in frm.crime) {
+          if (frm.crime[i].checked) {
+              arr.push(frm.crime[i].value);
+          }
+      }
+      alert(arr);
+      return arr
+     };  
+
       function showInput() {
           var home =  document.getElementById("home_address").value;
           var work = document.getElementById("work_address").value;
-        //  var crime = document.getElementById("crime").value;
 
           document.getElementById('display1').innerHTML = home;
           document.getElementById('display2').innerHTML = work;
-         // document.getElementById('display3').innerHTML = crime;
       };
+
 
     </script>
 

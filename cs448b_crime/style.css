@@ -1,5 +1,12 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+
+html *
+{
+   font-family: "Raleway" !important;
+}
+
 #body {
-    font-family: Helvetica;
+    font-family: "Raleway";
     color: black;
 }
 
@@ -7,7 +14,7 @@
     padding-top:5px;
     width: 100%;
     background-color: navy;
-    font-family: Helvetica;
+    font-family: "Raleway";
     color: white;
     float: center;
 }
@@ -15,11 +22,12 @@
 
 #map {
     width: 50%;
-    height: 550px;
+    height: 600px;
     float: left;
 }
 
 #inputform {
+    font-family: "Raleway"
     padding-top:5px;
     width: 40%;
     float: right;
@@ -27,9 +35,9 @@
     color: #111;
 }
 
-#clear {
+/*#clear {
     clear: black;
 }
 a {
     color: black;
-}
+}*/

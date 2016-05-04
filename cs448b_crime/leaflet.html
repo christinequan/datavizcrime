@@ -25,10 +25,25 @@
       
       <script>
 
-      var map = new L.Map("map", {center: [37.767683, -122.433701], zoom: 12})
-    .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"))
+         var map = new L.Map("map", {center: [37.767683, -122.433701], zoom: 13})
 
-      L.marker([37.767683, -122.433701]).addTo(map);
+            .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));
+            
+            L.marker([37.767683, -122.433701]).addTo(map);
+            
+            L.circle([37.767683, -122.433701], 500, {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5
+            }).addTo(map);
+            
+            L.marker([30.000011, -100.000101]).addTo(map);
+            
+            L.circle([30.000011, -100.000101], 500, {
+            color: 'blue',
+            fillColor: '#ccc',
+            fillOpacity: 0.5
+            }).addTo(map);
 
       </script>
 

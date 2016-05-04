@@ -11,14 +11,15 @@ html *
 }
 
 #header {
+    padding-left:10px;
     padding-top:5px;
+    padding-bottom:5px;
     width: 100%;
     background-color: navy;
     font-family: "Raleway";
     color: white;
     float: center;
 }
-
 
 #map {
     width: 50%;
@@ -35,9 +36,19 @@ html *
     color: #111;
 }
 
-/*#clear {
-    clear: black;
+.stations, .stations svg {
+  position: absolute;
 }
-a {
-    color: black;
-}*/
+
+.stations svg {
+  width: 60px;
+  height: 20px;
+  padding-right: 100px;
+  font: 10px sans-serif;
+}
+
+.stations circle {
+  stroke: black;
+  stroke-width: 1px;
+}
+

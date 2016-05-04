@@ -1,169 +1,195 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-   <head>
-      <script src="http://maps.googleapis.com/maps/api/js"></script>
-      <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-      <meta charset="utf-8"/>
-      <link rel="stylesheet" href="style.css"/>
-   </head>
-   <body>
-      <!-- Header -->
-      <div id= "header" >
-         <h1> SF CRIME MAP </h1>
-      </div>
-      <!-- Map Container -->
-      <script type = text/javascript >
-         function initialize() {
 
-          var myLatlng = new google.maps.LatLng(37.767683, -122.433701);
-          var workLatLng = new google.maps.LatLng(37.75, -122.4391);
-           
-           var mapProp = {
-             center: myLatlng,
-             zoom:13,
-             mapTypeId:google.maps.MapTypeId.ROADMAP
-           };
-           var map = new google.maps.Map(document.getElementById("map"),mapProp);
+<head>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA1ClH6yP1wgQH6-6QPBW80BEbheZ68Eks">
+    </script>
+    <script charset="utf-8" src="https://d3js.org/d3.v3.min.js">
+    </script>
 
-             var workIcon = 'http://www.myiconfinder.com/uploads/iconsets/32-32-6096188ce806c80cf30dca727fe7c237.png';
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-             var homeIcon = 'http://www.myiconfinder.com/uploads/iconsets/32-32-32c51ea858089f8d99ae6a1f62deb573.png'
+    <meta charset="utf-8">
+    <link href="style.css" rel="stylesheet">
+    <script type="text/javascript">
+        var homeMarker, workMarker, homeCircle, workCircle;
+        var json = "https://dl.dropboxusercontent.com/s/souktjrm67okgkj/scpd_incidents.json?dl=0";
 
-            var homeMarker = new google.maps.Marker({
-              position: myLatlng,
-              map: map,
-              icon: homeIcon,
-              draggable:true,
-              title:"Drag me!"
-          });
+        // List of days checked for visualization
+        var dayList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var maxDayList = 7;
+        var timeList = ["04:00", "12:00", "18:00"];
 
-            var workMarker = new google.maps.Marker({
-              position: workLatLng,
-              map: map,
-              icon: workIcon,
-              draggable:true,
-              title:"Drag me!"
-          });
+        var crimeList = ["VANDALISM", "NON-CRIMINAL", "ASSAULT", "LARCENY/THEFT"];
+        var addOthers = false;
+        var otherList = ["OTHER OFFENSES", "WARRANTS", "DISORDERLY CONDUCT", "TRESPASS", "SUSPICIOUS OCC", "DRUG/NARCOTIC", "SEX OFFENSES, FORCIBLE", "BURGLARY", "VEHICLE THEFT", "DRUNKENNESS", "STOLEN PROPERTY", "MISSING PERSON", "ARSON", "ROBBERY", "WEAPON LAWS", "FRAUD", "KIDNAPPING", "SEX OFFENSES, NON FORCIBLE", "SECONDARY CODES", "LIQUOR LAWS", "LOITERING", "FORGERY/COUNTERFEITING", "EMBEZZLEMENT", "DRIVING UNDER THE INFLUENCE", "GAMBLING", "EXTORTION", "RUNAWAY", "SUICIDE", "BRIBERY", "FAMILY OFFENSES", "PROSTITUTION"];
+        var myLatlng = new google.maps.LatLng(37.767683, -122.433701);
+            var workLatLng = new google.maps.LatLng(37.75, -122.4391);
+            var testLatLng = new google.maps.LatLng(37.7605000725995,-122.414845139206);
+            var workIcon = 'http://www.myiconfinder.com/uploads/iconsets/32-32-6096188ce806c80cf30dca727fe7c237.png';
+            var homeIcon = 'http://www.myiconfinder.com/uploads/iconsets/32-32-32c51ea858089f8d99ae6a1f62deb573.png';
 
-            var cityCircleHome = new google.maps.Circle({
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 0,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.15,
-                    map: map,
-                    center: myLatlng,
-                    radius: 1000,
-                    draggable: true,
-                    editable: true,
-                   });
+        function initialize() {
 
-            var cityCircleWork = new google.maps.Circle({
-                    strokeColor: '#4e64d1',
-                      strokeOpacity: 0.8,
-                      strokeWeight: 0,
-                      fillColor: '#4e64d1',
-                      fillOpacity: 0.15,
-                      map: map,
-                      center: workLatLng,
-                      radius: 1000,
-                      draggable: true,
-                      editable: true,
-                   });
 
-            // if you drag the marker
-            homeMarker.addListener('drag', function() {
-              cityCircleHome.setCenter(homeMarker.getPosition());
+            var map = new google.maps.Map(d3.select("#map").node(), {
+                center: myLatlng,
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+                  });
+
+            homeMarker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                icon: homeIcon,
+                draggable: true,
+                title: "Drag me!"
             });
 
-            workMarker.addListener('drag', function() {
-              cityCircleWork.setCenter(workMarker.getPosition());
+            workMarker = new google.maps.Marker({
+                position: workLatLng,
+                map: map,
+                icon: workIcon,
+                draggable: true,
+                title: "Drag me!"
             });
 
-            // if you drag the circles
-
-            cityCircleHome.addListener('drag', function() {
-              homeMarker.setCenter(cityCircleHome.getPosition());
+            homeCircle = new google.maps.Circle({
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 0,
+                fillColor: '#FF0000',
+                fillOpacity: 0.15,
+                map: map,
+                center: myLatlng,
+                radius: 1000,
+                draggable: true,
+                editable: false,
             });
 
-            cityCircleWork.addListener('drag', function() {
-              workMarker.setCenter(cityCircleWork.getPosition());
+            workCircle = new google.maps.Circle({
+                strokeColor: '#4e64d1',
+                strokeOpacity: 0.8,
+                strokeWeight: 0,
+                fillColor: '#4e64d1',
+                fillOpacity: 0.15,
+                map: map,
+                center: workLatLng,
+                radius: 1500,
+                draggable: true,
+                editable: false,
             });
 
-         }
+            homeCircle.bindTo('center', homeMarker, 'position');
+            workCircle.bindTo('center', workMarker, 'position');
 
-         google.maps.event.addDomListener(window, 'load', initialize);
-         
-         
-      </script>
-      <div id="map"></div>
-      <!-- Input Form -->
-      <div id="inputform">
-      <!-- Address Forms -->
-      <fieldset>
-         <label> Addresses </label><br>
-         <form>
-            <p>
-               <label> Home </label><br>
-               <input type = "text"
-                  id = "home_address"
-                  value = "text here" />
-            </p>
-            <p>
-               <label> Home Radius </label><br>
-               1 <input type="range" name="points" min="1" max="10" step = "1" value = "0"> 10
-            </p>
-            <p>
-               <label> Work </label><br>
-               <input type = "text"
-                  id = "work_address"
-                  value = "text here" />
-            </p>
-            <p>
-               <label> Work Radius </label><br>
-               1 <input type="range" name="points" min="1" max="10" step = "1" value="0"> 10
-            </p>
-         </form>
-      </fieldset>
-      <!-- Crimes Checkboxes -->
-      <fieldset>
-         <form action="">
-            <label> Crime </label><br>
-            <input type="checkbox" id = crime name="ARSON" value="ARSON">Arson <br>
-            <input type="checkbox" id = crime name="BRIBERY" value="BRIBERY">Bribery<br>
-            <input type="checkbox" id = crime name="BURGLARY" value="BURGLARY">Burglary <br> 
-            <input type="Button" value="Show values" onClick="showVal(this.form)"/> 
-         </form>
-      </fieldset>
-      <input type="Submit" value="Submit" onclick="showInput();"><br />
-      <!-- Tests --> 
-      <script type="text/javascript">
-         function showVal(frm) {
-         var arr = [];
-         for (var i in frm.crime) {
-             if (frm.crime[i].checked) {
-                 arr.push(frm.crime[i].value);
-             }
-         }
-         alert(arr);
-         return arr
-         };  
-         
-         function showInput() {
-             var home =  document.getElementById("home_address").value;
-             var work = document.getElementById("work_address").value;
-         
-             document.getElementById('display1').innerHTML = home;
-             document.getElementById('display2').innerHTML = work;
-         };
-         
-         
-      </script>
-      <label>Your home address: </label>
-      <p><span id='display1'></span> </p>
-      <label>Your work address: </label>
-      <p><span id='display2'></span> </p>
-      <label>Crime  address: </label>
-      <p><span id='display3'></span> </p>
-   </body>
+d3.json(json, function(error, data) {
+  // This function gets called when the request is resolved (either failed or succeeded)
+
+  if (error) {
+    // Handle error if there is any
+    //var marker1 = new google.maps.Marker({position: testLatLng, map: map,title: 'Hello PLUTO!'});
+    return console.warn(error);
+  }
+
+  // If there is no error, then data is actually ready to use
+  var marker1 = new google.maps.Marker({position: testLatLng, map: map,title: 'Hello PLUTO!'});
+
+  var overlay = new google.maps.OverlayView();
+
+  // Add the container when the overlay is added to the map.
+  overlay.onAdd = function() {
+    var layer = d3.select(this.getPanes().overlayLayer).append("div")
+        .attr("class", "points");
+
+    // Draw each marker as a separate SVG element.
+    // We could use a single SVG, but what size would it have?
+    overlay.draw = function() {
+      var projection = this.getProjection(),
+          padding = 10;
+
+      var testData = (d3.values(data))
+      console.log(testData)
+
+      var marker = layer.selectAll("svg")
+          .data(testData)
+          .each(transform) // update existing markers
+        .enter().append("svg")
+          .each(transform)
+          .attr("class", "marker");
+
+      // Add a circle.
+      marker.append("circle")
+          .attr("r", 4.5)
+          .attr("cx", padding)
+          .attr("cy", padding);
+
+
+      function transform(d) {
+
+        d = new google.maps.LatLng(d.value.Location[1], d.value.Location[0]);
+        d = projection.fromLatLngToDivPixel(d);
+        return d3.select(this)
+            .style("left", (d.x - padding) + "px")
+            .style("top", (d.y - padding) + "px");
+      }
+    };
+  };
+
+  // Bind our overlay to the map…
+  overlay.setMap(map);
+}); // end of d3
+       
+
+        } // end of initializing
+
+        function updateHomeRadius(val) {
+            homeCircle.setRadius(Number(val));
+            document.getElementById('textInput').value = val;
+        }
+
+        function updateWorkRadius(val) {
+            workCircle.setRadius(Number(val));
+            document.getElementById('textInputWork').value = val;
+        }
+
+    </script>
+    <title></title>
+</head>
+<!-- Map Container -->
+
+<body onload="initialize()">
+    <!-- Header -->
+    <div id="header">
+        <h1>San Francisco Crime Incidents</h1>
+    </div>
+    <div id="map"></div>
+    <!-- Input Form -->
+    <div id="inputform">
+        <!-- Address Forms -->
+        <p>
+            <label>Home Radius</label>
+            <br> 1
+            <input max="5000" min="0" name="rangeInput" onchange="updateHomeRadius(this.value);" type="range"> 5000
+            <br>
+            <input id="textInput" type="text" value="">
+        </p>
+        <p>
+            <label>Work Radius</label>
+            <br> 1
+            <input max="5000" min="0" name="rangeInput" onchange="updateWorkRadius(this.value);" type="range"> 5000
+            <br>
+            <input id="textInputWork" type="text" value="">
+        </p>
+        <!-- Crimes Checkboxes -->
+        <label>Crime</label><br>
+
+        <label class="checkbox">
+            <input checked="checked" id="inlineCheckboxCrime" name="LARCENY/THEFT" onchange="changeCrime(this)" type="checkbox" value="option1"> Larceny/Theft <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign" style="color:red"></span>
+        </label>
+    </div>
+<div>
+    Doing some JSON printing tests here:</div>
+</body>
+
 </html>

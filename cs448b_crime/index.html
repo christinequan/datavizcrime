@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA1ClH6yP1wgQH6-6QPBW80BEbheZ68Eks"> </script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA1ClH6yP1wgQH6-6QPBW80BEbheZ68Eks"></script>
     <script charset="utf-8" src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
@@ -11,13 +11,11 @@
 
     <meta charset="utf-8">
     <link href="style.css" rel="stylesheet">
-    <script type="text/javascript">
-
-    </script>
+    <script type="text/javascript"></script>
     <title></title>
 </head>
-<!-- Map Container -->
 
+<!-- Map Container -->
 <body onload="initialize()">
     <!-- Header -->
     <div id="header">
@@ -28,20 +26,6 @@
 
     <!-- Input Form -->
     <div id="inputform">
-        <!-- <p>
-            <label>Home Radius</label>
-            <br> 1
-            <input max="5000" min="0" name="rangeInput" onchange="updateHomeRadius(this.value);" type="range"> 5000
-            <br>
-            <input id="textInput" type="text" value="">
-        </p>
-        <p>
-            <label>Work Radius</label>
-            <br> 1
-            <input max="5000" min="0" name="Work Radius" onchange="updateWorkRadius(this.value);" type="range"> 5000
-            <br> 
-             </p>-->
-
 
         <div class = "slider" id = "home_slider">
             <br> 1 <input type="range" name="Home Radius" id="home_radius_in" value="1" min="1" max="5000" 
@@ -49,13 +33,15 @@
             > 5000 </br> 
             <label> <b> Home Radius: </b></label>
             <output name="Home Radius: " id="home_radius_out"></output>
+            <span> miles </span>
         </div>
 
         <div class = "slider" id = "work_slider">
             <br> 1 <input type="range" name="Work Radius" id="work_radius_in" value="1" min="1" max="5000" 
-            oninput="work_radius_out.value = work_radius_in.value" onchange="updateHomeRadius(this.value)"> 5000 </br> 
+            oninput="work_radius_out.value = work_radius_in.value" onchange="updateWorkRadius(this.value)"> 5000 </br> 
             <label> <b> Work Radius: </b></label>
             <output name="Work Radius: " id="work_radius_out"></output>
+            <span> miles </span>
         </div>
  
 
@@ -63,9 +49,11 @@
         <br>
         <label> <b> Crime </b></label><br>
         <form id = "crime_type">
-          <input type="checkbox" name="vehicle" value="ARSON" checked> Property Crimes <br>
-          <input type="checkbox" name="vehicle" value="BURGLARY" checked> Burglary <br>
-          <input type="checkbox" name="vehicle" value="EMBEZZLEMENT" checked> Finance <br>
+          <input type="checkbox" name="vehicle" value="PROPERTY" checked> Property  <br>
+          <input type="checkbox" name="vehicle" value="PERSONAL" checked> Personal <br>
+          <input type="checkbox" name="vehicle" value="FINANCIAL" checked> Financial <br>
+          <input type="checkbox" name="vehicle" value="ALCOHOL/DRUG" checked> Alcohol/Drugs <br>
+          <input type="checkbox" name="vehicle" value="OTHER" checked> Other <br>
         </form>
 
         <!-- Time CheckBoxes -->

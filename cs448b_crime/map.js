@@ -48,6 +48,7 @@ var myLatlng = new google.maps.LatLng(37.767683, -122.433701),
 var homeIcon = 'http://www.myiconfinder.com/uploads/iconsets/32-32-6096188ce806c80cf30dca727fe7c237.png',
     workIcon = 'http://www.myiconfinder.com/uploads/iconsets/32-32-4830c4c51f62c10feb5ae4450ddfbdf8.png';
 var homeMarker, workMarker, homeCircle, workCircle, globalData;
+var totalCount = 0;
 
 function initialize() {
         // -------------- map
@@ -257,13 +258,15 @@ function initialize() {
         }
         var filterAll = function(d) {
             if (filterIntersection(d) && filterDays(d) && filterTime(d) && filterRes(d) && filterCrime(d)) {
+                totalCount++;
+                $( "#total" ).val(totalCount + " crimes");
                 d3.select(this)
                     .style('visibility', 'visible');
             } else {
                 d3.select(this)
                     .style('visibility', 'hidden');
             }
-            //console.log(countMovement)
+            
         };
         // -------------- adding all other markers on an overlay
         var padding = 10;
@@ -299,6 +302,7 @@ function initialize() {
                 .selectAll("svg")
                 .data(d3.entries(globalData['data']))
                 .each(filterAll); // update existing markers
+            totalCount = 0;
         };
         d3.json("scpd_incidents.json", function(error, data) {
             if (error) throw error;

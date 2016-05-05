@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<title>San Francisco Crime Mapper</title> 
 <head>
 
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA1ClH6yP1wgQH6-6QPBW80BEbheZ68Eks"></script>
@@ -25,16 +26,17 @@
         <h2>Incidents during April 1 - 15, 2016</h2></div>
     </div>
     <div id="map"></div><!-- Input Form -->
-    <div id="inputform">
-        <div class="slider" id="home_slider">
-            <br>
-            1 <input id="home_radius_in" max="5000" min="1" name="Home Radius" onchange="updateHomeRadius(this.value)" oninput="home_radius_out.value = home_radius_in.value" type="range" value="1000"> 5000<br>
-            <label><b>Home Radius:</b></label> <output id="home_radius_out" name="Home Radius:"></output>
-        </div>
+    <div id="inputform"><p></p>
+    <input type="text" id= "total" readonly style="border:0; color:#0A7D40; font-weight:bold; font-size:40px">
+        <p></p><div class="slider" id="home_slider">
+             <label><b>Home Radius (m):</b></label> <output id="home_radius_out" name="Home Radius:" style="color:#0A7D40; font-weight:bold; font-size:15px"></output>
+       <br>
+            1 <input id="home_radius_in" max="5000" min="1" name="Home Radius" onchange="updateHomeRadius(this.value)" oninput="home_radius_out.value = home_radius_in.value" type="range" value="1000"> 5000<p></p>
+            </div>
         <div class="slider" id="work_slider">
-            <br>
+            <label><b>Work Radius (m):</b></label> <output id="work_radius_out" name="Work Radius:" style="color:#0A7D40; font-weight:bold; font-size:15px"></output><br>
             1 <input id="work_radius_in" max="5000" min="1" name="Work Radius" onchange="updateWorkRadius(this.value)" oninput="work_radius_out.value = work_radius_in.value" type="range" value="1500"> 5000<br>
-            <label><b>Work Radius:</b></label> <output id="work_radius_out" name="Work Radius:"></output>
+            
         </div><!-- Crimes Checkboxes -->
         <br>
         <label><b>Crime</b></label><br>
@@ -61,14 +63,11 @@
             </table>
         </form>
         <!-- Time CheckBoxes -->
-        <br>
-        <label><b>Time of Day</b></label>
 
             <div class = "slider" id = "time_slide_form">
-            <p>
+            <p></p>
             <label for "time"> Time Range: </label> 
-            <input type="text" id= "time" readonly style="border:0; color:#f6931f; font-weight:bold;">
-            </p> <br>
+            <input type="text" id= "time" readonly style="border:0; color:#0A7D40; font-weight:bold; font-size:15px">
             <div id="time_slider"></div> 
         </div>
 

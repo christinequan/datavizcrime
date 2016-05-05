@@ -1,11 +1,9 @@
 function updateHomeRadius(val) {
     homeCircle.setRadius(Number(val));
-    document.getElementById('textInput').value = val;
 }
 
 function updateWorkRadius(val) {
     workCircle.setRadius(Number(val));
-    document.getElementById('textInputWork').value = val;
 }
 
 function showInput(id, display) {
@@ -17,8 +15,3 @@ function showInput(id, display) {
 function updateTextInput(val) {
       document.getElementById('textInput').value=val; 
     }
-
-
-function updateRadius(circle, rad){
-  circle.setRadius(rad);
-}

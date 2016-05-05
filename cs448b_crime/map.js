@@ -147,8 +147,8 @@ function updateTextInput(val) {
   $( "#home_slider" ).slider({
     orientation: "horizontal",
     range: "min",
-    max: 10,
     min: 1,
+    max: 10,
     value: 10,
     slide: function( event, ui ) {
      updateRadius(circle, ui.value);
@@ -158,8 +158,8 @@ function updateTextInput(val) {
      $( "#work_slider" ).slider({
     orientation: "horizontal",
     range: "min",
-    max: 10,
     min: 1,
+    max: 10,
     value: 10,
     slide: function( event, ui ) {
      updateRadius(circle, ui.value);
@@ -241,3 +241,22 @@ function updatePoints (globalData, projection) {
 
     return true;
   });*/
+
+
+// jquery two-tailed slider
+$(function() {
+    $( "#time_slider" ).slider({
+      range: true,
+      min: 0,
+      max: 23,
+      values: [8, 6],
+
+      slide: function( event, ui ) {
+        $( "#time" ).val(ui.values[0] + ":00 - " + ui.values[ 1 ] + ":00");
+      }
+    });
+
+    $( "#time" ).val( "$" + $( "#time_slider" ).slider( "values", 0 ) +
+      " - " + $( "#time_slider" ).slider( "values", 1 ) );
+});
+

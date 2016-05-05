@@ -2,17 +2,28 @@
 <html lang="en">
 
 <head>
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA1ClH6yP1wgQH6-6QPBW80BEbheZ68Eks"></script>
-    <script charset="utf-8" src="https://d3js.org/d3.v3.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-    <script type="text/javascript" src="map.js"></script>
-    <script type="text/javascript" src="functions.js"></script>
-
+<title> SF Crime Map | March 2016 </title>
+  
     <meta charset="utf-8">
     <link href="style.css" rel="stylesheet">
     <script type="text/javascript"></script>
-    <title></title>
+
+    <!-- maps -->
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA1ClH6yP1wgQH6-6QPBW80BEbheZ68Eks"></script>
+    <script type="text/javascript" src="map.js"></script>
+    <script charset="utf-8" src="https://d3js.org/d3.v3.min.js"></script>
+
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="jquery-ui.min.css">
+    
+    <script type="text/javascript" src="map.js"></script>
+    
 </head>
 
 <!-- Map Container -->
@@ -58,13 +69,21 @@
 
         <!-- Time CheckBoxes -->
         <br>
-        <label> <b> Time of Day </b></label>
+        <!-- <label> <b> Time of Day </b></label>
          <form id = "time_of_day">
           <input type="checkbox" name="early morning" value="EARLY" checked> Early Morning <br>
           <input type="checkbox" name="business hours" value="BUSINESS" checked> Business Hours <br>
           <input type="checkbox" name="Evenings" value="EVENINGS" checked> Evenings <br>
           <input type="checkbox" name="Late Night" value="LATENIGHT" checked> Late Night <br>
-        </form>
+        </form> -->
+        <div class = "slider" id = "time_slide_form">
+            <p>
+            <label for "time"><b> Time </b></label>
+            <input type="text" id= "time" readonly style="border:0; color:#f6931f; font-weight:bold;">
+            </p>
+            <div id="time_slider"></div> 
+        </div>
+      
 
          <!-- Weekend.Weekday Checkboxes -->
         <br>

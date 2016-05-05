@@ -213,22 +213,6 @@ function initialize() {
 } // end of initializing
 
 
-function showInput(id, display) {
-
-    var message_entered =  document.getElementById(id).value;
-    document.getElementById(display).innerHTML = message_entered;
-}
-
-function updateTextInput(val) {
-      document.getElementById('textInput').value=val; 
-    }
-
-
-function updateRadius(circle, rad){
-  circle.setRadius(rad);
-}
-
-
 // Mapping the variables to bin them
 var CRIME_BIN = {
   "ARSON": "PROPERTY",

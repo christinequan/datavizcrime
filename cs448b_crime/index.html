@@ -1,118 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-<title> SF Crime Map | March 2016 </title>
-  
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA1ClH6yP1wgQH6-6QPBW80BEbheZ68Eks">
+    </script>
+    <script charset="utf-8" src="https://d3js.org/d3.v3.min.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+    </script>
+    <script src="map.js" type="text/javascript">
+    </script>
+    <script src="functions.js" type="text/javascript">
+    </script>
     <meta charset="utf-8">
     <link href="style.css" rel="stylesheet">
-    <script type="text/javascript"></script>
-
-    <!-- maps -->
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA1ClH6yP1wgQH6-6QPBW80BEbheZ68Eks"></script>
-    <script type="text/javascript" src="map.js"></script>
-    <script charset="utf-8" src="https://d3js.org/d3.v3.min.js"></script>
-
-    <!-- jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <link rel="stylesheet" href="jquery-ui.min.css">
-    
-    <script type="text/javascript" src="map.js"></script>
-    
-</head>
-
-<!-- Map Container -->
+    <script type="text/javascript">
+    </script>
+    <title></title>
+</head><!-- Map Container -->
 <body onload="initialize()">
     <!-- Header -->
     <div id="header">
         <h1>San Francisco Crime Incidents</h1>
     </div>
-    
-    <div id="map"></div>
-
-    <!-- Input Form -->
+    <div id="map"></div><!-- Input Form -->
     <div id="inputform">
-
-        <div class = "slider" id = "home_slider">
-            <br> 1 <input type="range" name="Home Radius" id="home_radius_in" value="1" min="1" max="5000" 
-            oninput="home_radius_out.value = home_radius_in.value" onchange="updateHomeRadius(this.value)"
-            > 5000 </br> 
-            <label> <b> Home Radius: </b></label>
-            <output name="Home Radius: " id="home_radius_out"></output>
-            <span> miles </span>
+        <div class="slider" id="home_slider">
+            <br>
+            1 <input id="home_radius_in" max="5000" min="1" name="Home Radius" onchange="updateHomeRadius(this.value)" oninput="home_radius_out.value = home_radius_in.value" type="range" value="1"> 5000<br>
+            <label><b>Home Radius:</b></label> <output id="home_radius_out" name="Home Radius:"></output>
         </div>
-
-        <div class = "slider" id = "work_slider">
-            <br> 1 <input type="range" name="Work Radius" id="work_radius_in" value="1" min="1" max="5000" 
-            oninput="work_radius_out.value = work_radius_in.value" onchange="updateWorkRadius(this.value)"> 5000 </br> 
-            <label> <b> Work Radius: </b></label>
-            <output name="Work Radius: " id="work_radius_out"></output>
-            <span> miles </span>
-        </div>
- 
-
-        <!-- Crimes Checkboxes -->
+        <div class="slider" id="work_slider">
+            <br>
+            1 <input id="work_radius_in" max="5000" min="1" name="Work Radius" onchange="updateWorkRadius(this.value)" oninput="work_radius_out.value = work_radius_in.value" type="range" value="1"> 5000<br>
+            <label><b>Work Radius:</b></label> <output id="work_radius_out" name="Work Radius:"></output>
+        </div><!-- Crimes Checkboxes -->
         <br>
-        <label> <b> Crime </b></label><br>
-        <form id = "crime_type">
-          <input type="checkbox" name="vehicle" value="PROPERTY" checked> Property  <br>
-          <input type="checkbox" name="vehicle" value="PERSONAL" checked> Personal <br>
-          <input type="checkbox" name="vehicle" value="FINANCIAL" checked> Financial <br>
-          <input type="checkbox" name="vehicle" value="ALCOHOL/DRUG" checked> Alcohol/Drugs <br>
-          <input type="checkbox" name="vehicle" value="OTHER" checked> Other <br>
-        </form>
-
-        <!-- Time CheckBoxes -->
+        <label><b>Crime</b></label><br>
+        <form id="crime_type" name="crime_type">
+            <input checked class="crime" type="checkbox" value="Property">Property<br>
+            <input checked class="crime" type="checkbox" value="Personal">Personal<br>
+            <input checked class="crime" type="checkbox" value="Finance">Finance<br>
+            <input checked class="crime" type="checkbox" value="Alcohol">Alcohol/Drugs<br>
+            <input checked class="crime" type="checkbox" value="Other">Other<br>
+        </form><!-- Time CheckBoxes -->
         <br>
-        <!-- <label> <b> Time of Day </b></label>
-         <form id = "time_of_day">
-          <input type="checkbox" name="early morning" value="EARLY" checked> Early Morning <br>
-          <input type="checkbox" name="business hours" value="BUSINESS" checked> Business Hours <br>
-          <input type="checkbox" name="Evenings" value="EVENINGS" checked> Evenings <br>
-          <input type="checkbox" name="Late Night" value="LATENIGHT" checked> Late Night <br>
-        </form> -->
-        <div class = "slider" id = "time_slide_form">
+        <label><b>Time of Day</b></label>
+            <div class = "slider" id = "time_slide_form">
             <p>
             <label for "time"><b> Time </b></label>
             <input type="text" id= "time" readonly style="border:0; color:#f6931f; font-weight:bold;">
             </p>
             <div id="time_slider"></div> 
         </div>
-      
-
-         <!-- Weekend.Weekday Checkboxes -->
+    <!-- Weekend.Weekday Checkboxes -->
         <br>
-        <label> <b> Weekday </b> </label>
-         <form id = "time_of_day">
-          <input type="checkbox" name="Monday" value="Monday" checked> Monday <br>
-          <input type="checkbox" name="Tuesday" value="Tuesday" checked> Tuesday <br>
-          <input type="checkbox" name="Wednesday" value="Wednesday" checked> Wednesday <br>
-          <input type="checkbox" name="Thursday" value="Thursday" checked> Thursday <br>
-          <input type="checkbox" name="Friday" value="Friday" checked> Friday <br>
-          <input type="checkbox" name="Saturday" value="Saturday" checked> Saturday <br>
-          <input type="checkbox" name="Sunday" value="Sunday" checked> Sunday <br>
-        </form>
-
-        <!-- Resolutions -->
+        <label><b>Weekday</b></label>
+        <form id="day" name="day">
+            <input checked class="day" type="checkbox" value="Monday"> Monday<br>
+            <input checked class="day" type="checkbox" value="Tuesday"> Tuesday<br>
+            <input checked class="day" type="checkbox" value="Wednesday"> Wednesday<br>
+            <input checked class="day" type="checkbox" value="Thursday"> Thursday<br>
+            <input checked class="day" type="checkbox" value="Friday"> Friday<br>
+            <input checked class="day" type="checkbox" value="Saturday"> Saturday<br>
+            <input checked class="day" type="checkbox" value="Sunday"> Sunday<br>
+        </form><!-- Resolutions -->
         <br>
-        <label>  <b> Resolutions </b> </label>
-         <form id = "resolution">
-          <input type="checkbox" name="Arrest" value="arrest" checked> Arrest <br>
-          <input type="checkbox" name="None" value="none" checked> None <br>
+        <label><b>Resolutions</b></label>
+        <form id="resolution" name="resolution">
+            <input checked class="res" type="checkbox" value="arrest"> Arrest<br>
+            <input checked class="res" type="checkbox" value="none"> None<br>
         </form>
-
-
     </div>
-<div>
+    <div></div>
 </body>
-
 </html>
-
-
-
-

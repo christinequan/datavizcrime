@@ -213,7 +213,7 @@ var CRIME_BIN = {
 
 // Visualize the data
 
-var see_points = [];
+/*var see_points = [];
 var marker_images = [];
 
 var crime_categories_on = {
@@ -240,4 +240,4 @@ function updatePoints (globalData, projection) {
     }
 
     return true;
-  });
+  });*/

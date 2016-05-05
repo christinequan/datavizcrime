@@ -25,6 +25,7 @@
     </div>
     
     <div id="map"></div>
+
     <!-- Input Form -->
     <div id="inputform">
         <p>
@@ -41,15 +42,54 @@
             <br>
             <input id="textInputWork" type="text" value="">
         </p>
-        <!-- Crimes Checkboxes -->
-        <label>Crime</label><br>
 
-        <label class="checkbox">
-            <input checked="checked" id="inlineCheckboxCrime" name="LARCENY/THEFT" onchange="changeCrime(this)" type="checkbox" value="option1"> Larceny/Theft <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign" style="color:red"></span>
-        </label>
+        <!-- Crimes Checkboxes -->
+        <br>
+        <label> <b> Crime </b></label><br>
+        <form id = "crime_type">
+          <input type="checkbox" name="vehicle" value="ARSON"> Property Crimes <br>
+          <input type="checkbox" name="vehicle" value="BURGLARY" > Burglary <br>
+          <input type="checkbox" name="vehicle" value="EMBEZZLEMENT" > Finance <br>
+        </form>
+
+        <!-- Time CheckBoxes -->
+        <br>
+        <label> <b> Time of Day </b></label>
+         <form id = "time_of_day">
+          <input type="checkbox" name="early morning" value="EARLY"> Early Morning <br>
+          <input type="checkbox" name="business hours" value="BUSINESS" > Business Hours <br>
+          <input type="checkbox" name="Evenings" value="EVENINGS" > Evenings <br>
+          <input type="checkbox" name="Late Night" value="LATENIGHT" > Late Night <br>
+        </form>
+
+         <!-- Weekend.Weekday Checkboxes -->
+        <br>
+        <label> <b> Weekday </b> </label>
+         <form id = "time_of_day">
+          <input type="checkbox" name="Monday" value="Monday"> Monday <br>
+          <input type="checkbox" name="Tuesday" value="Tuesday" > Tuesday <br>
+          <input type="checkbox" name="Wednesday" value="Wednesday" > Wednesday <br>
+          <input type="checkbox" name="Thursday" value="Thursday" > Thursday <br>
+          <input type="checkbox" name="Friday" value="Friday" > Friday <br>
+          <input type="checkbox" name="Saturday" value="Saturday" > Saturday <br>
+          <input type="checkbox" name="Sunday" value="Sunday" > Sunday <br>
+        </form>
+
+        <!-- Resolutions -->
+        <br>
+        <label>  <b> Resolutions </b> </label>
+         <form id = "resolution">
+          <input type="checkbox" name="Arrest" value="arrest"> Arrest <br>
+          <input type="checkbox" name="None" value="none" > None <br>
+        </form>
+
+
     </div>
 <div>
-    Doing some JSON printing tests here:</div>
 </body>
 
 </html>
+
+
+
+

@@ -4,10 +4,7 @@ function updateHomeRadius(val) {
 
 function updateWorkRadius(val) {
     workCircle.setRadius(Number(val));
-<<<<<<< HEAD
     document.getElementById('textInputWork').value = val;
-=======
->>>>>>> 1c9f44ad2b45ff6c86ec82819c148c8ea33e2c8f
 }
 
 function showInput(id, display) {
@@ -18,7 +15,6 @@ function showInput(id, display) {
 
 function updateTextInput(val) {
       document.getElementById('textInput').value=val; 
-<<<<<<< HEAD
     }
 
 /*$(function() {
@@ -138,6 +134,8 @@ $(function() {
       " - " + $( "#time_slider" ).slider( "values", 1 ) );
 });
 
-=======
+
     }
->>>>>>> 1c9f44ad2b45ff6c86ec82819c148c8ea33e2c8f
+
+    }
+

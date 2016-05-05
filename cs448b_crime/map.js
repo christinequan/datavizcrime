@@ -130,6 +130,15 @@ function initialize() {
                 //console.log(valid_days)
                 applyFilters();
             });
+         $("input[class='time']")
+            .change(function() {
+                $("input[class='time']")
+                    .each(function(index, element) {
+                        valid_time[index] = element.checked;
+                    });
+                console.log(valid_time)
+                applyFilters();
+            });
         $("input[class='res']")
             .change(function() {
                 $("input[class='res']")
@@ -174,6 +183,13 @@ function initialize() {
             } else {
                 return false;
             }
+        }
+
+        var filterTime = function(d) {
+            var time = str.substring(d.value.Time, 0, 2);
+            console.log(time);
+
+            
         }
         var filterIntersection = function(d) {
             var _dLatLng = new google.maps.LatLng(d.value.Location[1], d.value.Location[0]);

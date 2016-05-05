@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 
+
+    <title>SF Crime Map </title>
+
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA1ClH6yP1wgQH6-6QPBW80BEbheZ68Eks"></script>
     <script charset="utf-8" src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -10,7 +13,13 @@
     <meta charset="utf-8">
     <link href="style.css" rel="stylesheet">
     <script type="text/javascript"></script>
-    <title></title>
+
+    <!-- JQuery -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+      <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+      <link rel="stylesheet" href="/resources/demos/style.css">
+
 </head><!-- Map Container -->
 <body onload="initialize()">
     <!-- Header -->
@@ -37,25 +46,21 @@
             <input checked class="crime" type="checkbox" value="Finance">Finance<br>
             <input checked class="crime" type="checkbox" value="Alcohol">Alcohol/Drugs<br>
             <input checked class="crime" type="checkbox" value="Other">Other<br>
-        </form><!-- Time CheckBoxes -->
+        </form>
+
+        <!-- Time CheckBoxes -->
         <br>
         <label><b>Time of Day</b></label>
 
             <div class = "slider" id = "time_slide_form">
             <p>
-            <label for "time"><b> Time </b></label>
+            <label for "time"> Time Range: </label>
             <input type="text" id= "time" readonly style="border:0; color:#f6931f; font-weight:bold;">
             </p>
             <div id="time_slider"></div> 
         </div>
-    <!-- Weekend.Weekday Checkboxes -->
-
-        <form id="time_of_day" name="time_of_day">
-            <input checked name="time" type="checkbox" value="EARLY">Early Morning<br>
-            <input checked name="time" type="checkbox" value="BUSINESS">Business Hours<br>
-            <input checked name="time" type="checkbox" value="EVENINGS">Evenings<br>
-            <input checked name="time" type="checkbox" value="LATENIGHT">Late Night<br>
-        </form><!-- Weekend.Weekday Checkboxes -->
+         
+        <!-- Weekdays -->
         <br>
         <label><b>Weekday</b></label>
         <form id="day" name="day">

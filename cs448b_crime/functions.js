@@ -123,19 +123,13 @@ $(function() {
       range: true,
       min: 0,
       max: 23,
-      values: [8, 6],
+      values: [8, 18],
 
       slide: function( event, ui ) {
         $( "#time" ).val(ui.values[0] + ":00 - " + ui.values[ 1 ] + ":00");
       }
     });
 
-    $( "#time" ).val( "$" + $( "#time_slider" ).slider( "values", 0 ) +
-      " - " + $( "#time_slider" ).slider( "values", 1 ) );
+    $( "#time" ).val($( "#time_slider" ).slider( "values", 0 ) +
+      ":00 - " + $( "#time_slider" ).slider( "values", 1 ) + ":00");
 });
-
-
-    }
-
-    }
-

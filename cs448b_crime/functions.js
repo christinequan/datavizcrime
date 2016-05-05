@@ -4,7 +4,6 @@ function updateHomeRadius(val) {
 
 function updateWorkRadius(val) {
     workCircle.setRadius(Number(val));
-    document.getElementById('textInputWork').value = val;
 }
 
 function showInput(id, display) {
@@ -115,21 +114,3 @@ function updatePoints (globalData, projection) {
 
     return true;
   });*/
-
-
-// jquery two-tailed slider
-$(function() {
-    $( "#time_slider" ).slider({
-      range: true,
-      min: 0,
-      max: 23,
-      values: [8, 18],
-
-      slide: function( event, ui ) {
-        $( "#time" ).val(ui.values[0] + ":00 - " + ui.values[ 1 ] + ":00");
-      }
-    });
-
-    $( "#time" ).val($( "#time_slider" ).slider( "values", 0 ) +
-      ":00 - " + $( "#time_slider" ).slider( "values", 1 ) + ":00");
-});

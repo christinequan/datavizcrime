@@ -3,7 +3,8 @@ var json = "https://dl.dropboxusercontent.com/s/souktjrm67okgkj/scpd_incidents.j
 var dayList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
     valid_days = [true, true, true, true, true, true, true],
     valid_res = [true, true],
-    valid_crime = [true, true, true, true, true];
+    valid_crime = [true, true, true, true, true],
+    timerange = [0, 23];
 // Mapping the variables to bin them
 var CRIME_BIN = {
     "ARSON": "PROPERTY",
@@ -130,15 +131,25 @@ function initialize() {
                 //console.log(valid_days)
                 applyFilters();
             });
-         $("input[class='time']")
-            .change(function() {
-                $("input[class='time']")
-                    .each(function(index, element) {
-                        valid_time[index] = element.checked;
-                    });
-                console.log(valid_time)
+
+        $(function() {
+            $( "#time_slider" ).slider({
+              range: true,
+              min: 0,
+              max: 23,
+              values: [0, 23],
+
+              slide: function( event, ui ) {
+                $( "#time" ).val(ui.values[0] + ":00 - " + ui.values[ 1 ] + ":00");
+                timerange[0] = $("#time_slider").slider( "values", 0);
+                timerange[1] = $("#time_slider").slider( "values", 1);
                 applyFilters();
+              }
             });
+            $( "#time" ).val($( "#time_slider" ).slider( "values", 0 ) +
+              ":00 - " + $( "#time_slider" ).slider( "values", 1 ) + ":00");
+        });
+
         $("input[class='res']")
             .change(function() {
                 $("input[class='res']")
@@ -186,10 +197,17 @@ function initialize() {
         }
 
         var filterTime = function(d) {
-            var time = str.substring(d.value.Time, 0, 2);
-            console.log(time);
-
-            
+            console.log(timerange);
+            var time = d.value.Time;
+            var numTime = Number(time.substr(0, 2));
+            console.log("Num " + numTime);
+            console.log(numTime + ":" + timerange[0] + "-" + timerange[1]);
+            if (numTime >= timerange[0] && numTime <= timerange[1]) {
+                console.log(numTime + " ," + timerange[0]);
+                return true;
+            } else {
+                return false;
+            }
         }
         var filterIntersection = function(d) {
             var _dLatLng = new google.maps.LatLng(d.value.Location[1], d.value.Location[0]);
@@ -202,7 +220,7 @@ function initialize() {
             }
         }
         var filterAll = function(d) {
-            if (filterIntersection(d) && filterDays(d) && filterRes(d) && filterCrime(d)) {
+            if (filterIntersection(d) && filterDays(d) && filterTime(d) && filterRes(d) && filterCrime(d)) {
                 d3.select(this)
                     .style('visibility', 'visible');
             } else {
@@ -263,3 +281,4 @@ function initialize() {
             overlay.setMap(map);
         });
     } // end of initializing
+

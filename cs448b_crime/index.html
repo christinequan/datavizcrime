@@ -31,12 +31,12 @@
         <div class="slider" id="home_slider">
             <br>
             1000 <input id="home_radius_in" max="5000" min="1" name="Home Radius" onchange="updateHomeRadius(this.value)" oninput="home_radius_out.value = home_radius_in.value" type="range" value="1"> 5000<br>
-            <label><b>Home Radius:</b></label> <output id="home_radius_out" name="Home Radius:"></output>
+            <label><b>Home Radius:</b></label> <output id="home_radius_out" name="Home Radius:"></output> <span> miles </span>
         </div>
         <div class="slider" id="work_slider">
             <br>
             1000 <input id="work_radius_in" max="5000" min="1" name="Work Radius" onchange="updateWorkRadius(this.value)" oninput="work_radius_out.value = work_radius_in.value" type="range" value="1"> 5000<br>
-            <label><b>Work Radius:</b></label> <output id="work_radius_out" name="Work Radius:"></output>
+            <label><b>Work Radius:</b></label> <output id="work_radius_out" name="Work Radius:"></output> <span> miles </span>
         </div><!-- Crimes Checkboxes -->
         <br>
         <label><b>Crime</b></label><br>
@@ -53,11 +53,12 @@
         <label><b>Time of Day</b></label>
 
             <div class = "slider" id = "time_slide_form">
+            <div id="time_slider"></div> 
+            
             <p>
             <label for "time"> Time Range: </label>
             <input type="text" id= "time" readonly style="border:0; color:#f6931f; font-weight:bold;">
             </p>
-            <div id="time_slider"></div> 
         </div>
          
         <!-- Weekdays -->

@@ -30,13 +30,13 @@
     <div id="inputform">
         <div class="slider" id="home_slider">
             <br>
-            1000 <input id="home_radius_in" max="5000" min="1" name="Home Radius" onchange="updateHomeRadius(this.value)" oninput="home_radius_out.value = home_radius_in.value" type="range" value="1"> 5000<br>
-            <label><b>Home Radius:</b></label> <output id="home_radius_out" name="Home Radius:"></output> <span> miles </span>
+            1000 <input id="home_radius_in" max="5000" min="1000" name="Home Radius" onchange="updateHomeRadius(this.value)" oninput="home_radius_out.value = home_radius_in.value" type="range" value="1000"> 5000<br>
+            <label><b>Home Radius:</b></label> <output id="home_radius_out" name="Home Radius:" value = "1000"></output> <span></span>
         </div>
         <div class="slider" id="work_slider">
             <br>
-            1000 <input id="work_radius_in" max="5000" min="1" name="Work Radius" onchange="updateWorkRadius(this.value)" oninput="work_radius_out.value = work_radius_in.value" type="range" value="1"> 5000<br>
-            <label><b>Work Radius:</b></label> <output id="work_radius_out" name="Work Radius:"></output> <span> miles </span>
+            1000 <input id="work_radius_in" max="5000" min="1000" name="Work Radius" onchange="updateWorkRadius(this.value)" oninput="work_radius_out.value = work_radius_in.value" type="range" value="1"> 5000<br>
+            <label><b>Work Radius:</b></label> <output id="work_radius_out" name="Work Radius:" value= "1000"></output>
         </div><!-- Crimes Checkboxes -->
         <br>
         <label><b>Crime</b></label><br>
@@ -53,12 +53,11 @@
         <label><b>Time of Day</b></label>
 
             <div class = "slider" id = "time_slide_form">
-            <div id="time_slider"></div> 
-            
             <p>
-            <label for "time"> Time Range: </label>
+            <label for "time"> Time Range: </label> 
             <input type="text" id= "time" readonly style="border:0; color:#f6931f; font-weight:bold;">
-            </p>
+            </p> <br>
+            <div id="time_slider"></div> 
         </div>
          
         <!-- Weekdays -->

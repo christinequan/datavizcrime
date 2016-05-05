@@ -45,8 +45,8 @@ var CRIME_BIN = {
 }
 var myLatlng = new google.maps.LatLng(37.767683, -122.433701),
     workLatLng = new google.maps.LatLng(37.75, -122.4391);
-var workIcon = 'http://www.myiconfinder.com/uploads/iconsets/32-32-6096188ce806c80cf30dca727fe7c237.png',
-    homeIcon = 'http://www.myiconfinder.com/uploads/iconsets/32-32-32c51ea858089f8d99ae6a1f62deb573.png';
+var homeIcon = 'http://www.myiconfinder.com/uploads/iconsets/32-32-6096188ce806c80cf30dca727fe7c237.png',
+    workIcon = 'http://www.myiconfinder.com/uploads/iconsets/32-32-4830c4c51f62c10feb5ae4450ddfbdf8.png';
 var homeMarker, workMarker, homeCircle, workCircle, globalData;
 
 function initialize() {
@@ -61,6 +61,7 @@ function initialize() {
                 },
                 streetViewControl: false,
             });
+
         // -------------- home and work marker, binding
         homeMarker = new google.maps.Marker({
             position: myLatlng,
@@ -75,11 +76,11 @@ function initialize() {
             draggable: true,
         });
         homeCircle = new google.maps.Circle({
-            strokeColor: '#FF0000',
+            strokeColor: '#43B076',
             strokeOpacity: 0.8,
-            strokeWeight: 0,
-            fillColor: '#FF0000',
-            fillOpacity: 0.15,
+            strokeWeight: 1,
+            fillColor: '#43B076',
+            fillOpacity: 0.2,
             map: map,
             center: myLatlng,
             radius: 1000,
@@ -87,11 +88,11 @@ function initialize() {
             editable: false,
         });
         workCircle = new google.maps.Circle({
-            strokeColor: '#4e64d1',
-            strokeOpacity: 0.8,
-            strokeWeight: 0,
-            fillColor: '#4e64d1',
-            fillOpacity: 0.15,
+            strokeColor: '#333',
+            strokeOpacity: 0.6,
+            strokeWeight: 1,
+            fillColor: '#ccc',
+            fillOpacity: 0.4,
             map: map,
             center: workLatLng,
             radius: 1500,
@@ -114,17 +115,17 @@ function initialize() {
             applyFilters();
         });
         // -------------- what are we filtering?
-        $("input[class='crime']")
+        $("input[name='crime']")
             .change(function() {
-                $("input[class='crime']")
+                $("input[name='crime']")
                     .each(function(index, element) {
                         valid_crime[index] = element.checked;
                     });
                 applyFilters();
             });
-        $("input[class='day']")
+        $("input[name='day']")
             .change(function() {
-                $("input[class='day']")
+                $("input[name='day']")
                     .each(function(index, element) {
                         valid_days[index] = element.checked;
                     });
@@ -150,9 +151,10 @@ function initialize() {
               ":00 - " + $( "#time_slider" ).slider( "values", 1 ) + ":00");
         });
 
-        $("input[class='res']")
+        $("input[name='res']")
+
             .change(function() {
-                $("input[class='res']")
+                $("input[name='res']")
                     .each(function(index, element) {
                         valid_res[index] = element.checked;
                     });
@@ -197,13 +199,13 @@ function initialize() {
         }
 
         var filterTime = function(d) {
-            console.log(timerange);
+            //console.log(timerange);
             var time = d.value.Time;
             var numTime = Number(time.substr(0, 2));
-            console.log("Num " + numTime);
-            console.log(numTime + ":" + timerange[0] + "-" + timerange[1]);
+            //console.log("Num " + numTime);
+            //console.log(numTime + ":" + timerange[0] + "-" + timerange[1]);
             if (numTime >= timerange[0] && numTime <= timerange[1]) {
-                console.log(numTime + " ," + timerange[0]);
+                //console.log(numTime + " ," + timerange[0]);
                 return true;
             } else {
                 return false;
@@ -243,7 +245,7 @@ function initialize() {
                 .attr("class", "marker");
             // Add a circle.
             marker.insert("circle")
-                .attr("r", 1.5)
+                .attr("r", 1)
                 .attr("cx", padding)
                 .attr("cy", padding);
         };

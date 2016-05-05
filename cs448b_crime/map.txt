@@ -123,26 +123,6 @@ function initialize() {
                     });
                 applyFilters();
             });
-
-
-        $(function() {
-            $( "#time_slider" ).slider({
-              range: true,
-              min: 0,
-              max: 23,
-              values: [0, 23],
-
-              slide: function( event, ui ) {
-                $( "#time" ).val(ui.values[0] + ":00 - " + ui.values[ 1 ] + ":00");
-                timerange[0] = $("#time_slider").slider( "values", 0);
-                timerange[1] = $("#time_slider").slider( "values", 1);
-                applyFilters();
-              }
-            });
-            $( "#time" ).val($( "#time_slider" ).slider( "values", 0 ) +
-              ":00 - " + $( "#time_slider" ).slider( "values", 1 ) + ":00");
-        });
-
         $("input[name='day']")
             .change(function() {
                 $("input[name='day']")
@@ -203,20 +183,6 @@ function initialize() {
             if ((res == 'NONE') && (valid_res[1] === true)) {
                 return true;
             } else if ((res != 'NONE') && (valid_res[0] === true)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        var filterTime = function(d) {
-            //console.log(timerange);
-            var time = d.value.Time;
-            var numTime = Number(time.substr(0, 2));
-            //console.log("Num " + numTime);
-            //console.log(numTime + ":" + timerange[0] + "-" + timerange[1]);
-            if (numTime >= timerange[0] && numTime <= timerange[1]) {
-                //console.log(numTime + " ," + timerange[0]);
                 return true;
             } else {
                 return false;

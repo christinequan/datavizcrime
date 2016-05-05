@@ -1,18 +1,25 @@
+<<<<<<< HEAD
+=======
+
+
+var homeMarker, workMarker, homeCircle, workCircle;
+>>>>>>> 3d1d1942afe279904abef021300a887a8f843438
 var json = "https://dl.dropboxusercontent.com/s/souktjrm67okgkj/scpd_incidents.json?dl=0";
 
-// List of days checked for visualization
-var dayList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-    valid_days = [true, true, true, true, true, true, true],
-    valid_res = [true, true];
 
+// List of days checked for visualization
+var dayList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+var maxDayList = 7;
+var timeList = ["04:00", "12:00", "18:00"];
 var crimeList = ["VANDALISM", "NON-CRIMINAL", "ASSAULT", "LARCENY/THEFT"];
+var addOthers = false;
 var otherList = ["OTHER OFFENSES", "WARRANTS", "DISORDERLY CONDUCT", "TRESPASS", "SUSPICIOUS OCC", "DRUG/NARCOTIC", "SEX OFFENSES, FORCIBLE", "BURGLARY", "VEHICLE THEFT", "DRUNKENNESS", "STOLEN PROPERTY", "MISSING PERSON", "ARSON", "ROBBERY", "WEAPON LAWS", "FRAUD", "KIDNAPPING", "SEX OFFENSES, NON FORCIBLE", "SECONDARY CODES", "LIQUOR LAWS", "LOITERING", "FORGERY/COUNTERFEITING", "EMBEZZLEMENT", "DRIVING UNDER THE INFLUENCE", "GAMBLING", "EXTORTION", "RUNAWAY", "SUICIDE", "BRIBERY", "FAMILY OFFENSES", "PROSTITUTION"];
 
-var myLatlng = new google.maps.LatLng(37.767683, -122.433701),
-    workLatLng = new google.maps.LatLng(37.75, -122.4391);
-
-var workIcon = 'http://www.myiconfinder.com/uploads/iconsets/32-32-6096188ce806c80cf30dca727fe7c237.png',
-    homeIcon = 'http://www.myiconfinder.com/uploads/iconsets/32-32-32c51ea858089f8d99ae6a1f62deb573.png';
+var myLatlng = new google.maps.LatLng(37.767683, -122.433701);
+var workLatLng = new google.maps.LatLng(37.75, -122.4391);
+var testLatLng = new google.maps.LatLng(37.7605000725995, -122.414845139206);
+var workIcon = 'http://www.myiconfinder.com/uploads/iconsets/32-32-6096188ce806c80cf30dca727fe7c237.png';
+var homeIcon = 'http://www.myiconfinder.com/uploads/iconsets/32-32-32c51ea858089f8d99ae6a1f62deb573.png';
 
 var homeMarker, workMarker, homeCircle, workCircle, globalData;
 
@@ -92,48 +99,8 @@ function initialize() {
 
     });
 
-    // -------------- what are we filtering?
-
-    $("input[class='day']").change(function() {
-            $("input[class='day']").each(function(index, element) {
-                valid_days[index] = element.checked;
-            });
-            //console.log(valid_days)
-            applyFilters();
-      });
-
-    $("input[class='res']").change(function() {
-            $("input[class='res']").each(function(index, element) {
-                valid_res[index] = element.checked;
-            });
-            applyFilters();
-      });
-
     // -------------- many filters such filter i'm meme'ing wrong
 
-    var filterRes = function(d) {
-      var res = d.value.Resolution;
-      //console.log(res)
-      if ((res == 'NONE') && (valid_res[1] == true)) {
-        return true;
-      } else if ((res != 'NONE') && (valid_res[0] == true)) {
-        return true;
-      } else {
-        return false;
-      }
-      
-    }
-
-    var filterDays = function(d) {
-        var index = dayList.indexOf(d.value.DayOfWeek),
-            is_valid = valid_days[index];
-            //console.log(valid_days)
-        if (is_valid) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     var filterIntersection = function(d) {
         var _dLatLng = new google.maps.LatLng(d.value.Location[1], d.value.Location[0]);
@@ -147,8 +114,10 @@ function initialize() {
     }
 
     var filterAll = function(d) {
-        if (filterIntersection(d) && filterDays(d) && filterRes(d)) {
+        if (filterIntersection(d)) {
             d3.select(this).style('visibility', 'visible');
+            countMovement++;
+
         } else {
             d3.select(this).style('visibility', 'hidden');
         }
@@ -224,6 +193,31 @@ function updateTextInput(val) {
     }
 
 
+
+/*$(function() {
+  $( "#home_slider" ).slider({
+    orientation: "horizontal",
+    range: "min",
+    max: 10,
+    min: 1,
+    value: 10,
+    slide: function( event, ui ) {
+     updateRadius(circle, ui.value);
+    }
+
+
+     $( "#work_slider" ).slider({
+    orientation: "horizontal",
+    range: "min",
+    max: 10,
+    min: 1,
+    value: 10,
+    slide: function( event, ui ) {
+     updateRadius(circle, ui.value);
+    }
+});*/
+
+
 function updateRadius(circle, rad){
   circle.setRadius(rad);
 }
@@ -268,3 +262,33 @@ var CRIME_BIN = {
   "WEAPON LAWS": "OTHER"
 }
 
+// Visualize the data
+
+/*var see_points = [];
+var marker_images = [];
+
+var crime_categories_on = {
+  "PERSONAL": true,
+  "PROPERTY": true,
+  "FINANCIAL": true,
+  "ALCOHOL/DRUG": true,
+  "OTHER": true
+};
+
+
+function isCrimeTypeOn(type) {
+  var crime_type = CRIME_BIN[type];
+  return crimes_checked[crime_type];
+}
+
+function updatePoints (globalData, projection) {
+  visible_crime_data = globalData.filter(function(entry) {
+   
+    //check that crime category has been checked
+    var crime_type = entry["Category"];
+    if (!isCrimeTypeOn(crime_type)) {
+      return false;
+    }
+
+    return true;
+  });*/

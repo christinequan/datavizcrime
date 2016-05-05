@@ -36,18 +36,18 @@ html *
     color: #111;
 }
 
-.stations, .stations svg {
+.incidents, .incidents svg {
   position: absolute;
 }
 
-.stations svg {
+.incidents svg {
   width: 60px;
   height: 20px;
   padding-right: 100px;
   font: 10px sans-serif;
 }
 
-.stations circle {
+.incidents circle {
   stroke: black;
   stroke-width: 1px;
 }

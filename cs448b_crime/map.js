@@ -74,14 +74,14 @@ function initialize() {
     homeCircle.bindTo('center', homeMarker, 'position');
     workCircle.bindTo('center', workMarker, 'position');
 
-    // -------------- adding all other markers on an overaly
+    // -------------- adding all other markers on an overlay
 
     var padding = 10;
     var overlay = new google.maps.OverlayView();
 
     var updateMarkers = function(data) {
         console.log("updateMarkers called")
-        console.log(globalData['data'])
+        //console.log(globalData['data'])
 
         var marker = d3.select('.incidents').selectAll("svg")
             .data(d3.entries(globalData['data']))
@@ -91,15 +91,15 @@ function initialize() {
             .attr("class", "marker");
 
         // Add a circle.
-        marker.append("circle")
+        marker.insert("circle")
             .attr("r", 1.5)
             .attr("cx", padding)
             .attr("cy", padding);
+
+        console.log(marker)
     };
 
     function transformMarkers(d) {
-        console.log("transformMarkers called")
-        
         d = new google.maps.LatLng(d.value.Location[1], d.value.Location[0]);
         d = overlay.getProjection().fromLatLngToDivPixel(d);
         return d3.select(this)
@@ -109,10 +109,8 @@ function initialize() {
 
     d3.json("scpd_incidents.json", function(error, data) {
         if (error) throw error;
-
         globalData = data;
         // Add the container when the overlay is added to the map.
-
 
         overlay.onAdd = function() {
             var layer = d3.select(this.getPanes().overlayLayer).append("div")
@@ -120,12 +118,12 @@ function initialize() {
 
             // Draw each marker as a separate SVG element.
             overlay.draw = function() {
-                console.log("calling update Markers")
                 updateMarkers(data)
             };
         };
 
         overlay.setMap(map);
+        console.log("We did the overlay thing.")
     });
 
 } // end of initializing

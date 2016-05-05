@@ -28,7 +28,7 @@
 
     <!-- Input Form -->
     <div id="inputform">
-        <p>
+        <!-- <p>
             <label>Home Radius</label>
             <br> 1
             <input max="5000" min="0" name="rangeInput" onchange="updateHomeRadius(this.value);" type="range"> 5000
@@ -38,49 +38,65 @@
         <p>
             <label>Work Radius</label>
             <br> 1
-            <input max="5000" min="0" name="rangeInput" onchange="updateWorkRadius(this.value);" type="range"> 5000
-            <br>
-            <input id="textInputWork" type="text" value="">
-        </p>
+            <input max="5000" min="0" name="Work Radius" onchange="updateWorkRadius(this.value);" type="range"> 5000
+            <br> 
+             </p>-->
+
+
+        <div class = "slider" id = "home_slider">
+            <br> 1 <input type="range" name="Home Radius" id="home_radius_in" value="1" min="1" max="5000" 
+            oninput="home_radius_out.value = home_radius_in.value" onchange="updateHomeRadius(this.value)"
+            > 5000 </br> 
+            <label> <b> Home Radius: </b></label>
+            <output name="Home Radius: " id="home_radius_out"></output>
+        </div>
+
+        <div class = "slider" id = "work_slider">
+            <br> 1 <input type="range" name="Work Radius" id="work_radius_in" value="1" min="1" max="5000" 
+            oninput="work_radius_out.value = work_radius_in.value" onchange="updateHomeRadius(this.value)"> 5000 </br> 
+            <label> <b> Work Radius: </b></label>
+            <output name="Work Radius: " id="work_radius_out"></output>
+        </div>
+ 
 
         <!-- Crimes Checkboxes -->
         <br>
         <label> <b> Crime </b></label><br>
         <form id = "crime_type">
-          <input type="checkbox" name="vehicle" value="ARSON"> Property Crimes <br>
-          <input type="checkbox" name="vehicle" value="BURGLARY" > Burglary <br>
-          <input type="checkbox" name="vehicle" value="EMBEZZLEMENT" > Finance <br>
+          <input type="checkbox" name="vehicle" value="ARSON" checked> Property Crimes <br>
+          <input type="checkbox" name="vehicle" value="BURGLARY" checked> Burglary <br>
+          <input type="checkbox" name="vehicle" value="EMBEZZLEMENT" checked> Finance <br>
         </form>
 
         <!-- Time CheckBoxes -->
         <br>
         <label> <b> Time of Day </b></label>
          <form id = "time_of_day">
-          <input type="checkbox" name="early morning" value="EARLY"> Early Morning <br>
-          <input type="checkbox" name="business hours" value="BUSINESS" > Business Hours <br>
-          <input type="checkbox" name="Evenings" value="EVENINGS" > Evenings <br>
-          <input type="checkbox" name="Late Night" value="LATENIGHT" > Late Night <br>
+          <input type="checkbox" name="early morning" value="EARLY" checked> Early Morning <br>
+          <input type="checkbox" name="business hours" value="BUSINESS" checked> Business Hours <br>
+          <input type="checkbox" name="Evenings" value="EVENINGS" checked> Evenings <br>
+          <input type="checkbox" name="Late Night" value="LATENIGHT" checked> Late Night <br>
         </form>
 
          <!-- Weekend.Weekday Checkboxes -->
         <br>
         <label> <b> Weekday </b> </label>
          <form id = "time_of_day">
-          <input type="checkbox" name="Monday" value="Monday"> Monday <br>
-          <input type="checkbox" name="Tuesday" value="Tuesday" > Tuesday <br>
-          <input type="checkbox" name="Wednesday" value="Wednesday" > Wednesday <br>
-          <input type="checkbox" name="Thursday" value="Thursday" > Thursday <br>
-          <input type="checkbox" name="Friday" value="Friday" > Friday <br>
-          <input type="checkbox" name="Saturday" value="Saturday" > Saturday <br>
-          <input type="checkbox" name="Sunday" value="Sunday" > Sunday <br>
+          <input type="checkbox" name="Monday" value="Monday" checked> Monday <br>
+          <input type="checkbox" name="Tuesday" value="Tuesday" checked> Tuesday <br>
+          <input type="checkbox" name="Wednesday" value="Wednesday" checked> Wednesday <br>
+          <input type="checkbox" name="Thursday" value="Thursday" checked> Thursday <br>
+          <input type="checkbox" name="Friday" value="Friday" checked> Friday <br>
+          <input type="checkbox" name="Saturday" value="Saturday" checked> Saturday <br>
+          <input type="checkbox" name="Sunday" value="Sunday" checked> Sunday <br>
         </form>
 
         <!-- Resolutions -->
         <br>
         <label>  <b> Resolutions </b> </label>
          <form id = "resolution">
-          <input type="checkbox" name="Arrest" value="arrest"> Arrest <br>
-          <input type="checkbox" name="None" value="none" > None <br>
+          <input type="checkbox" name="Arrest" value="arrest" checked> Arrest <br>
+          <input type="checkbox" name="None" value="none" checked> None <br>
         </form>
 
 
